@@ -8,7 +8,7 @@
 #ifndef MACRO_SEQUENCE_FOR_H_ // Intentionally not a `#pragma once`, to be able to tolerate multiple copies of the file.
 #define MACRO_SEQUENCE_FOR_H_
 
-// "macro_sequence_for.h", v0.1.0
+// "macro_sequence_for.h", v0.1.1
 // Implements macro loops with unlimited number of iterations, over sequences of the form `(a)(b)(c)` (though the nesting level is limited).
 // See `SF_FOR_EACH()` below for the usage explanation.
 
@@ -38,10 +38,9 @@
 #define SF_FOR_EACHxx(m, s, f, d, seq) IMPL_SEQFOR_FORxx(m, s, f, d, IMPL_SEQFOR_TO_GUIDE_A IMPL_SEQFOR_ANNOTATE_SEQ_END(IMPL_SEQFOR_ANNOTATE_SEQ_A seq)) )
 
 // Various useful macros, to be passed as arguments to `SF_FOR_EACH`.
-// In nested loops, those might need to be spelled as `SF_CAT(SF_??, n)`, where `n` is the loop nesting level.
-#define SF_NULLxx(...) // A no-op.
-#define SF_PRESERVE_STATExx(n, d, ...) d // As a step function, leaves the state unchanged.
-#define SF_DUMP_STATExx(n, d) d // As a final function, dumps the state.
+#define SF_NULL(...) // A no-op.
+#define SF_PRESERVE_STATE(n, d, ...) d // As a step function, leaves the state unchanged.
+#define SF_DUMP_STATE(n, d) d // As a final function, dumps the state.
 
 // Concatenate two identifiers.
 #define SF_CAT(x, y) SF_CAT_(x, y)

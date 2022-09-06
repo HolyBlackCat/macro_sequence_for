@@ -1,7 +1,7 @@
 #ifndef MACRO_SEQUENCE_FOR_H_ // Intentionally not a `#pragma once`, to be able to tolerate multiple copies of the file.
 #define MACRO_SEQUENCE_FOR_H_
 
-// "macro_sequence_for.h", v0.1.0
+// "macro_sequence_for.h", v0.1.1
 // Implements macro loops with unlimited number of iterations, over sequences of the form `(a)(b)(c)` (though the nesting level is limited).
 // See `SF_FOR_EACH()` below for the usage explanation.
 
@@ -31,7 +31,6 @@
 #define SF_FOR_EACH(m, s, f, d, seq) IMPL_SEQFOR_FOR(m, s, f, d, IMPL_SEQFOR_TO_GUIDE_A IMPL_SEQFOR_ANNOTATE_SEQ_END(IMPL_SEQFOR_ANNOTATE_SEQ_A seq)) )
 
 // Various useful macros, to be passed as arguments to `SF_FOR_EACH`.
-// In nested loops, those might need to be spelled as `SF_CAT(SF_??, n)`, where `n` is the loop nesting level.
 #define SF_NULL(...) // A no-op.
 #define SF_PRESERVE_STATE(n, d, ...) d // As a step function, leaves the state unchanged.
 #define SF_DUMP_STATE(n, d) d // As a final function, dumps the state.
@@ -86,9 +85,6 @@
 // Generated boilerplate for nested loops:
 // 0
 #define SF_FOR_EACH0(m, s, f, d, seq) IMPL_SEQFOR_FOR0(m, s, f, d, IMPL_SEQFOR_TO_GUIDE_A IMPL_SEQFOR_ANNOTATE_SEQ_END(IMPL_SEQFOR_ANNOTATE_SEQ_A seq)) )
-#define SF_NULL0(...) // A no-op.
-#define SF_PRESERVE_STATE0(n, d, ...) d // As a step function, leaves the state unchanged.
-#define SF_DUMP_STATE0(n, d) d // As a final function, dumps the state.
 #define IMPL_SEQFOR_FOR0(m, s, f, d, guide) IMPL_SEQFOR_IDENTITY0( IMPL_SEQFOR_FOR_GUIDE0_A IMPL_SEQFOR_LPAREN m, s, f, d, guide )
 #define IMPL_SEQFOR_IDENTITY0(...) __VA_ARGS__
 #define IMPL_SEQFOR_FOR_GUIDE0_A(m, s, f, d, e) IMPL_SEQFOR_CAT(IMPL_SEQFOR_FOR_GUIDE0_A_, e)(m, s, f, d)
@@ -97,9 +93,6 @@
 #define IMPL_SEQFOR_FOR_GUIDE0_B(m, s, f, d, ...) m(1, d, __VA_ARGS__) IMPL_SEQFOR_FOR_GUIDE0_A(m, s, f, s(1, d, __VA_ARGS__),
 // 1
 #define SF_FOR_EACH1(m, s, f, d, seq) IMPL_SEQFOR_FOR1(m, s, f, d, IMPL_SEQFOR_TO_GUIDE_A IMPL_SEQFOR_ANNOTATE_SEQ_END(IMPL_SEQFOR_ANNOTATE_SEQ_A seq)) )
-#define SF_NULL1(...) // A no-op.
-#define SF_PRESERVE_STATE1(n, d, ...) d // As a step function, leaves the state unchanged.
-#define SF_DUMP_STATE1(n, d) d // As a final function, dumps the state.
 #define IMPL_SEQFOR_FOR1(m, s, f, d, guide) IMPL_SEQFOR_IDENTITY1( IMPL_SEQFOR_FOR_GUIDE1_A IMPL_SEQFOR_LPAREN m, s, f, d, guide )
 #define IMPL_SEQFOR_IDENTITY1(...) __VA_ARGS__
 #define IMPL_SEQFOR_FOR_GUIDE1_A(m, s, f, d, e) IMPL_SEQFOR_CAT(IMPL_SEQFOR_FOR_GUIDE1_A_, e)(m, s, f, d)
@@ -108,9 +101,6 @@
 #define IMPL_SEQFOR_FOR_GUIDE1_B(m, s, f, d, ...) m(2, d, __VA_ARGS__) IMPL_SEQFOR_FOR_GUIDE1_A(m, s, f, s(2, d, __VA_ARGS__),
 // 2
 #define SF_FOR_EACH2(m, s, f, d, seq) IMPL_SEQFOR_FOR2(m, s, f, d, IMPL_SEQFOR_TO_GUIDE_A IMPL_SEQFOR_ANNOTATE_SEQ_END(IMPL_SEQFOR_ANNOTATE_SEQ_A seq)) )
-#define SF_NULL2(...) // A no-op.
-#define SF_PRESERVE_STATE2(n, d, ...) d // As a step function, leaves the state unchanged.
-#define SF_DUMP_STATE2(n, d) d // As a final function, dumps the state.
 #define IMPL_SEQFOR_FOR2(m, s, f, d, guide) IMPL_SEQFOR_IDENTITY2( IMPL_SEQFOR_FOR_GUIDE2_A IMPL_SEQFOR_LPAREN m, s, f, d, guide )
 #define IMPL_SEQFOR_IDENTITY2(...) __VA_ARGS__
 #define IMPL_SEQFOR_FOR_GUIDE2_A(m, s, f, d, e) IMPL_SEQFOR_CAT(IMPL_SEQFOR_FOR_GUIDE2_A_, e)(m, s, f, d)
@@ -119,9 +109,6 @@
 #define IMPL_SEQFOR_FOR_GUIDE2_B(m, s, f, d, ...) m(3, d, __VA_ARGS__) IMPL_SEQFOR_FOR_GUIDE2_A(m, s, f, s(3, d, __VA_ARGS__),
 // 3
 #define SF_FOR_EACH3(m, s, f, d, seq) IMPL_SEQFOR_FOR3(m, s, f, d, IMPL_SEQFOR_TO_GUIDE_A IMPL_SEQFOR_ANNOTATE_SEQ_END(IMPL_SEQFOR_ANNOTATE_SEQ_A seq)) )
-#define SF_NULL3(...) // A no-op.
-#define SF_PRESERVE_STATE3(n, d, ...) d // As a step function, leaves the state unchanged.
-#define SF_DUMP_STATE3(n, d) d // As a final function, dumps the state.
 #define IMPL_SEQFOR_FOR3(m, s, f, d, guide) IMPL_SEQFOR_IDENTITY3( IMPL_SEQFOR_FOR_GUIDE3_A IMPL_SEQFOR_LPAREN m, s, f, d, guide )
 #define IMPL_SEQFOR_IDENTITY3(...) __VA_ARGS__
 #define IMPL_SEQFOR_FOR_GUIDE3_A(m, s, f, d, e) IMPL_SEQFOR_CAT(IMPL_SEQFOR_FOR_GUIDE3_A_, e)(m, s, f, d)
@@ -130,9 +117,6 @@
 #define IMPL_SEQFOR_FOR_GUIDE3_B(m, s, f, d, ...) m(4, d, __VA_ARGS__) IMPL_SEQFOR_FOR_GUIDE3_A(m, s, f, s(4, d, __VA_ARGS__),
 // 4
 #define SF_FOR_EACH4(m, s, f, d, seq) IMPL_SEQFOR_FOR4(m, s, f, d, IMPL_SEQFOR_TO_GUIDE_A IMPL_SEQFOR_ANNOTATE_SEQ_END(IMPL_SEQFOR_ANNOTATE_SEQ_A seq)) )
-#define SF_NULL4(...) // A no-op.
-#define SF_PRESERVE_STATE4(n, d, ...) d // As a step function, leaves the state unchanged.
-#define SF_DUMP_STATE4(n, d) d // As a final function, dumps the state.
 #define IMPL_SEQFOR_FOR4(m, s, f, d, guide) IMPL_SEQFOR_IDENTITY4( IMPL_SEQFOR_FOR_GUIDE4_A IMPL_SEQFOR_LPAREN m, s, f, d, guide )
 #define IMPL_SEQFOR_IDENTITY4(...) __VA_ARGS__
 #define IMPL_SEQFOR_FOR_GUIDE4_A(m, s, f, d, e) IMPL_SEQFOR_CAT(IMPL_SEQFOR_FOR_GUIDE4_A_, e)(m, s, f, d)
@@ -141,9 +125,6 @@
 #define IMPL_SEQFOR_FOR_GUIDE4_B(m, s, f, d, ...) m(5, d, __VA_ARGS__) IMPL_SEQFOR_FOR_GUIDE4_A(m, s, f, s(5, d, __VA_ARGS__),
 // 5
 #define SF_FOR_EACH5(m, s, f, d, seq) IMPL_SEQFOR_FOR5(m, s, f, d, IMPL_SEQFOR_TO_GUIDE_A IMPL_SEQFOR_ANNOTATE_SEQ_END(IMPL_SEQFOR_ANNOTATE_SEQ_A seq)) )
-#define SF_NULL5(...) // A no-op.
-#define SF_PRESERVE_STATE5(n, d, ...) d // As a step function, leaves the state unchanged.
-#define SF_DUMP_STATE5(n, d) d // As a final function, dumps the state.
 #define IMPL_SEQFOR_FOR5(m, s, f, d, guide) IMPL_SEQFOR_IDENTITY5( IMPL_SEQFOR_FOR_GUIDE5_A IMPL_SEQFOR_LPAREN m, s, f, d, guide )
 #define IMPL_SEQFOR_IDENTITY5(...) __VA_ARGS__
 #define IMPL_SEQFOR_FOR_GUIDE5_A(m, s, f, d, e) IMPL_SEQFOR_CAT(IMPL_SEQFOR_FOR_GUIDE5_A_, e)(m, s, f, d)
@@ -152,9 +133,6 @@
 #define IMPL_SEQFOR_FOR_GUIDE5_B(m, s, f, d, ...) m(6, d, __VA_ARGS__) IMPL_SEQFOR_FOR_GUIDE5_A(m, s, f, s(6, d, __VA_ARGS__),
 // 6
 #define SF_FOR_EACH6(m, s, f, d, seq) IMPL_SEQFOR_FOR6(m, s, f, d, IMPL_SEQFOR_TO_GUIDE_A IMPL_SEQFOR_ANNOTATE_SEQ_END(IMPL_SEQFOR_ANNOTATE_SEQ_A seq)) )
-#define SF_NULL6(...) // A no-op.
-#define SF_PRESERVE_STATE6(n, d, ...) d // As a step function, leaves the state unchanged.
-#define SF_DUMP_STATE6(n, d) d // As a final function, dumps the state.
 #define IMPL_SEQFOR_FOR6(m, s, f, d, guide) IMPL_SEQFOR_IDENTITY6( IMPL_SEQFOR_FOR_GUIDE6_A IMPL_SEQFOR_LPAREN m, s, f, d, guide )
 #define IMPL_SEQFOR_IDENTITY6(...) __VA_ARGS__
 #define IMPL_SEQFOR_FOR_GUIDE6_A(m, s, f, d, e) IMPL_SEQFOR_CAT(IMPL_SEQFOR_FOR_GUIDE6_A_, e)(m, s, f, d)
@@ -163,9 +141,6 @@
 #define IMPL_SEQFOR_FOR_GUIDE6_B(m, s, f, d, ...) m(7, d, __VA_ARGS__) IMPL_SEQFOR_FOR_GUIDE6_A(m, s, f, s(7, d, __VA_ARGS__),
 // 7
 #define SF_FOR_EACH7(m, s, f, d, seq) IMPL_SEQFOR_FOR7(m, s, f, d, IMPL_SEQFOR_TO_GUIDE_A IMPL_SEQFOR_ANNOTATE_SEQ_END(IMPL_SEQFOR_ANNOTATE_SEQ_A seq)) )
-#define SF_NULL7(...) // A no-op.
-#define SF_PRESERVE_STATE7(n, d, ...) d // As a step function, leaves the state unchanged.
-#define SF_DUMP_STATE7(n, d) d // As a final function, dumps the state.
 #define IMPL_SEQFOR_FOR7(m, s, f, d, guide) IMPL_SEQFOR_IDENTITY7( IMPL_SEQFOR_FOR_GUIDE7_A IMPL_SEQFOR_LPAREN m, s, f, d, guide )
 #define IMPL_SEQFOR_IDENTITY7(...) __VA_ARGS__
 #define IMPL_SEQFOR_FOR_GUIDE7_A(m, s, f, d, e) IMPL_SEQFOR_CAT(IMPL_SEQFOR_FOR_GUIDE7_A_, e)(m, s, f, d)
