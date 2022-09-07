@@ -8,19 +8,20 @@
 #ifndef MACRO_SEQUENCE_FOR_H_ // Intentionally not a `#pragma once`, to be able to tolerate multiple copies of the file.
 #define MACRO_SEQUENCE_FOR_H_
 
-// "macro_sequence_for.h", v0.1.2
+// "macro_sequence_for.h", v0.2.0
 // Implements macro loops with unlimited number of iterations, over sequences of the form `(a)(b)(c)` (though the nesting level is limited).
 // See `SF_FOR_EACH()` below for the usage explanation.
 
-// By Egor Mikhailov, 2022.
-// License - PUBLIC DOMAIN (0BSD).
-
+// BSD Zero Clause License
+//
+// Copyright (c) 2022 Egor Mikhailov
+//
 // Permission to use, copy, modify, and/or distribute this software for any
 // purpose with or without fee is hereby granted.
 //
 // THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH
-// REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND
-// FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT,
+// REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY
+// AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT,
 // INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM
 // LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
 // OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
