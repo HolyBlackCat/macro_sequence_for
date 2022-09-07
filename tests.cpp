@@ -90,7 +90,27 @@ static_assert(same(STR(SF_FOR_EACH(SF_NULL, SF_STATE, SF_STATE, s0, (1)(2)(3))),
 #define FLAGS_FINAL(n, d) _mask = (1 << (d)) - 1
 
 MAKE_FLAGS(E, (a)(b)(c))
-static_assert(E::a == 1, "Test: generating enum flags.");
-static_assert(E::b == 2, "Test: generating enum flags.");
-static_assert(E::c == 4, "Test: generating enum flags.");
-static_assert(E::_mask == 7, "Test: generating enum flags.");
+static_assert(E::a == 1, "Test: Generating enum flags.");
+static_assert(E::b == 2, "Test: Generating enum flags.");
+static_assert(E::c == 4, "Test: Generating enum flags.");
+static_assert(E::_mask == 7, "Test: Generating enum flags.");
+
+// Example: sum.
+#define SUM(seq) SF_FOR_EACH(SF_NULL, SUM_STEP, SF_STATE, 0, seq)
+#define SUM_STEP(n, d, x) d+x
+
+static_assert(SUM((1)(2)(3)) == 6, "Test: Integer sum.");
+
+
+// Example: sum.
+#define DECL(value, seq) SF_FOR_EACH(DECL_BODY, SF_STATE, SF_NULL, value, seq)
+#define DECL_BODY(n, d, x) const int x = d;
+DECL(42, (x)(y)(z))
+static_assert(x == 42 && y == 42 && z == 42, "Test: Declaring variables.");
+
+// Example: nested loop.
+#define ARRAYS(seq) SF_FOR_EACH(ARRAYS_BODY, SF_NULL, SF_NULL,, seq)
+#define ARRAYS_BODY(n, d, name, values) int name[] = {SF_FOR_EACH2(ARRAYS_BODY2, SF_NULL, SF_NULL,, values)};
+#define ARRAYS_BODY2(n, d, x) x,
+
+ARRAYS((f,(1)(2)(3))(g,(4)(5))) // int f[] = {1,2,3,}; int g[] = {4,5,};
