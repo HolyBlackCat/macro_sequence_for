@@ -11,7 +11,7 @@ OUTPUT=macro_sequence_for.h
 
 # The base part, aka the -1th nesting level.
 # `-e '$d'` deletes the last line, which is the `#endif` of the include guard.
-sed -e '$d' -e 's/xx//g' -e 's/yy/0/g' -e 's/SF_MAX_NESTING 0/SF_MAX_NESTING '"$N"'/' "$INPUT" | grep -vE '^//\?\?' >"$OUTPUT"
+sed -e '$d' -e 's/xx//g' -e 's/yy/0/g' -e 's/SF_MAX_DEPTH 0/SF_MAX_DEPTH '"$N"'/' "$INPUT" | grep -vE '^//\?\?' >"$OUTPUT"
 
 # Boilerplate for nesting levels `0..N-1`.
 for ((i=0; $i<$N; i=$(($i+1))))

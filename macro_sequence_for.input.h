@@ -48,7 +48,7 @@
 // The max loop nesting level. This is baked in at the code generation time, adjust it in `generate.sh`.
 // The actual number of supporting nesting levels is `N+1`, with name suffixes ``, `0`, `1`, ..., `N-1`.
 // The most nested loop will report `N` as the next available level.
-#define SF_MAX_NESTING 0
+#define SF_MAX_DEPTH 0
 
 
 // Implementation:
