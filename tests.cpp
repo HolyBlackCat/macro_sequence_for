@@ -77,10 +77,10 @@ static_assert(same(STR(SF_FOR_EACH(NESTED_BODY, SF_NULL, SF_NULL,, (0,)(1,(10,))
 )"), "Test: True nested loops.");
 
 // Predefined macro arguments:
-// SF_PRESERVE_STATE
-static_assert(same(STR(SF_FOR_EACH(BODY, SF_PRESERVE_STATE, SF_NULL, s0, (1)(2)(3))), "(body:n=0;x=1;d=s0) (body:n=0;x=2;d=s0) (body:n=0;x=3;d=s0)"), "Test: SF_PRESERVE_STATE");
-// SF_DUMP_STATE
-static_assert(same(STR(SF_FOR_EACH(SF_NULL, SF_PRESERVE_STATE, SF_DUMP_STATE, s0, (1)(2)(3))), "s0"), "Test: SF_DUMP_STATE");
+// SF_STATE
+static_assert(same(STR(SF_FOR_EACH(BODY, SF_STATE, SF_NULL, s0, (1)(2)(3))), "(body:n=0;x=1;d=s0) (body:n=0;x=2;d=s0) (body:n=0;x=3;d=s0)"), "Test: SF_STATE as the step function.");
+// SF_STATE
+static_assert(same(STR(SF_FOR_EACH(SF_NULL, SF_STATE, SF_STATE, s0, (1)(2)(3))), "s0"), "Test: SF_STATE as the final function.");
 
 
 // Example: generating flags.
@@ -90,7 +90,7 @@ static_assert(same(STR(SF_FOR_EACH(SF_NULL, SF_PRESERVE_STATE, SF_DUMP_STATE, s0
 #define FLAGS_FINAL(n, d) _mask = (1 << (d)) - 1
 
 MAKE_FLAGS(E, (a)(b)(c))
-static_assert(E::a == 1);
-static_assert(E::b == 2);
-static_assert(E::c == 4);
-static_assert(E::_mask == 7);
+static_assert(E::a == 1, "Test: generating enum flags.");
+static_assert(E::b == 2, "Test: generating enum flags.");
+static_assert(E::c == 4, "Test: generating enum flags.");
+static_assert(E::_mask == 7, "Test: generating enum flags.");
