@@ -9,7 +9,7 @@ COMPILER := $(strip $(shell bash -c "compgen -c 'g++-'; compgen -c 'clang++'" | 
 COMPILER := $(foreach x,$(COMPILER),$(if $(filter g++%,$x),$x $x$(comma)-fms-extensions,$(if $(filter clang++%,$x),$x $x$(comma)-fms-compatibility,$x)))
 
 # The source file used for code generation.
-INPUT=macro_sequence_for.input.h
+INPUT=macro_sequence_for.codegen_input.h
 # The result of the generation.
 OUTPUT=macro_sequence_for.h
 

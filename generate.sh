@@ -1,12 +1,12 @@
 #!/bin/bash
 
 # Generates the header file, adding the appropriate boilerplate.
-# See `macro_sequence_for.input.h` for the details on what is being generated.
+# See `macro_sequence_for.codegen_input.h` for the details on what is being generated.
 
 # The max level of loop nesting. (The number of iterations is always unlimited.)
 N=8
 
-INPUT=macro_sequence_for.input.h
+INPUT=macro_sequence_for.codegen_input.h
 OUTPUT=macro_sequence_for.h
 
 # The base part, aka the -1th nesting level.
