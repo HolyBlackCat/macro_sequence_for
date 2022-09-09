@@ -11,11 +11,11 @@ COMPILER := $(foreach x,$(COMPILER),$(if $(filter g++%,$x),$x $x$(comma)-fms-ext
 # The source file used for code generation.
 INPUT=macro_sequence_for.codegen_input.h
 # The result of the generation.
-OUTPUT=macro_sequence_for.h
+OUTPUT=include/macro_sequence_for.h
 
 .PHONY: tests
 tests: tests.cpp $(OUTPUT)
-	@true $(foreach x,$(COMPILER),&& echo -n "$(subst $(comma), ,$x)" && $(subst $(comma), ,$x) -std=c++14 -Wall -Wextra -pedantic-errors $< -c -o $(shell mktemp) && echo " - OK")
+	@true $(foreach x,$(COMPILER),&& echo -n "$(subst $(comma), ,$x) " && $(subst $(comma), ,$x) -std=c++14 -Wall -Wextra -pedantic-errors -Iinclude $< -c -o $(shell mktemp) && echo "- OK")
 
 $(OUTPUT): $(INPUT) generate.sh
 	@mkdir -p "$(dir $(OUTPUT))"

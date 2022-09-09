@@ -7,7 +7,9 @@
 N=8
 
 INPUT=macro_sequence_for.codegen_input.h
-OUTPUT=macro_sequence_for.h
+OUTPUT=include/macro_sequence_for.h
+
+mkdir -p "$(dirname "$OUTPUT")"
 
 # The base part, aka the -1th nesting level.
 # `-e '$d'` deletes the last line, which is the `#endif` of the include guard.
