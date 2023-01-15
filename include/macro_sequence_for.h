@@ -47,7 +47,7 @@
 
 // Implementation:
 
-#if defined(_MSC_VER) && (!defined(_MSVC_TRADITIONAL) || _MSVC_TRADITIONAL == 1)
+#if defined(_MSC_VER) && !defined(__clang__) && (!defined(_MSVC_TRADITIONAL) || _MSVC_TRADITIONAL == 1)
 #error The standard-conformant MSVC preprocessor is required, enable it with `/Zc:preprocessor`.
 #endif
 
