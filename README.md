@@ -76,6 +76,10 @@ ARRAYS((f,(1)(2)(3))(g,(4)(5))) // int f[] = {1,2,3,}; int g[] = {4,5,};
 
 You can automatically get the recursion level from the `n` argument, and call `SF_FOR_EACH(...)` as `SF_CAT(SF_FOR_EACH,n)(...)` to glue the number to the macro name.
 
+### Some extras
+
+`STEP()` can emit output in addition to `BODY()`, by returning `d, ...` (`...` gets emitted as text after the result of `BODY()`, while `d` gets assigned to the state variable). This can let you avoid duplicate work in some cases, and often looks better in general. The downside is that it can't emit unbalanced parentheses.
+
 ### How?
 
 The basic idea is taken from the [PPMP Iceberg](https://jadlevesque.github.io/PPMP-Iceberg/explanations#codefxyyyyycode) article: to convert the sequence of the form `(a)(b)(c)` to `a) b) c)`. They call those "guides".

@@ -83,6 +83,20 @@ static_assert(same(STR(SF_FOR_EACH(BODY, SF_STATE, SF_NULL, s0, (1)(2)(3))), "(b
 static_assert(same(STR(SF_FOR_EACH(SF_NULL, SF_STATE, SF_STATE, s0, (1)(2)(3))), "s0"), "Test: SF_STATE as the final function.");
 
 
+
+// Emitting text directly from step:
+#define BODY2(n_, d_, ...) (body:n=n_;x=__VA_ARGS__;d=d_),b,b
+#define STEP2(n_, d_, ...) (step:n=n_;x=__VA_ARGS__;d=d_),s,s
+#define FINAL2(n_, d_) (final:n=n_;d=d_),f,f
+static_assert(same(STR(SF_FOR_EACH(BODY2, STEP2, FINAL2, s0, (1)(2)(3))), R"(
+    (body:n=0;x=1;d=s0),b,b s,s
+    (body:n=0;x=2;d=(step:n=0;x=1;d=s0)),b,b s,s
+    (body:n=0;x=3;d=(step:n=0;x=2;d=(step:n=0;x=1;d=s0))),b,b s,s
+    (final:n=0;d=(step:n=0;x=3;d=(step:n=0;x=2;d=(step:n=0;x=1;d=s0)))),f,f
+)"), "Test: 0 iterations.");
+
+
+
 // Example: generating flags.
 #define MAKE_FLAGS(name, seq) enum name {SF_FOR_EACH(FLAGS_BODY, FLAGS_STEP, FLAGS_FINAL, 0, seq)};
 #define FLAGS_BODY(n, d, x) x = 1 << (d),

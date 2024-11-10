@@ -8,7 +8,7 @@
 #ifndef MACRO_SEQUENCE_FOR_H_ // Intentionally not a `#pragma once`, to be able to tolerate multiple copies of the file.
 #define MACRO_SEQUENCE_FOR_H_
 
-// "macro_sequence_for.h", v0.2.1
+// "macro_sequence_for.h", v0.3
 // Implements macro loops with unlimited number of iterations, over sequences of the form `(a)(b)(c)` (though the nesting level is limited).
 // See `SF_FOR_EACH()` below for the usage explanation.
 
@@ -31,11 +31,20 @@
 // A loop over a sequence of the form `(a)(b)(c)`. The elements can contain commas.
 // `m` is the loop body, invoked as `m(n, d, ...)`, where `...` is one of the elements,
 // `d` initially matches the argument `d` of `SF_FOR_EACH`, but is replaced with
-// the result of `s(n, d, ...)` after every iteration (which must not contain unparenthesized commas).
-// After the loop finishes, `f(n, d)` is called with the final value of `state`.
-// The `n` argument receives the next available loop nesting level. `SF_FOR_EACH` sets it to `0`, while `SF_FOR_EACHi` sets it to `i+1`.
-// Use `SF_FOR_EACHi(...)` for nested loops, where `i` can either be hardcoded, or come from the `n` argument of the outer loop,
-// in which case you can use `SF_CAT(SF_FOR_EACH, n)(...)`.
+//   the result of `s(n, d, ...)` after every iteration.
+// After the loop finishes, `f(n, d)` is called with the final value of `d`.
+
+// Additionally, if `s` returns something with a `,`, everything after the first comma
+//   gets pasted to the output after `m(...)` on the same iteration. This is sometimes
+//   useful in complex macros, where you'd otherwise repeat the same computation
+//   in both `m` and `s`.
+// But note that while `m` can return absolutely anything, `s` can't return mismatched parentheses.
+//
+// The `n` argument receives the next available loop nesting level. `SF_FOR_EACH`
+//   sets it to `0`, while `SF_FOR_EACHi` sets it to `i+1`.
+// Use `SF_FOR_EACHi(...)` for nested loops, where `i` can either be hardcoded,
+//   or come from the `n` argument of the outer loop, in which case you
+//   can use `SF_CAT(SF_FOR_EACH, n)(...)`.
 #define SF_FOR_EACHxx(m, s, f, d, seq) IMPL_SEQFOR_FORxx(m, s, f, d, IMPL_SEQFOR_TO_GUIDE_A IMPL_SEQFOR_ANNOTATE_SEQ_END(IMPL_SEQFOR_ANNOTATE_SEQ_A seq)) )
 
 // Various useful macros, to be passed as arguments to `SF_FOR_EACH`.
@@ -88,7 +97,9 @@
 #define IMPL_SEQFOR_FOR_GUIDExx_A(m, s, f, d, e) IMPL_SEQFOR_CAT(IMPL_SEQFOR_FOR_GUIDExx_A_, e)(m, s, f, d)
 #define IMPL_SEQFOR_FOR_GUIDExx_A_(m, s, f, d) IMPL_SEQFOR_FOR_GUIDExx_B(m, s, f, d,
 #define IMPL_SEQFOR_FOR_GUIDExx_A_0(m, s, f, d) f(yy, d) IMPL_SEQFOR_NULL(
-#define IMPL_SEQFOR_FOR_GUIDExx_B(m, s, f, d, ...) m(yy, d, __VA_ARGS__) IMPL_SEQFOR_FOR_GUIDExx_A(m, s, f, s(yy, d, __VA_ARGS__),
+#define IMPL_SEQFOR_FOR_GUIDExx_B(m, s, f, d, ...) m(yy, d, __VA_ARGS__) IMPL_SEQFOR_FOR_GUIDExx_B_0(m, s, f, s(yy, d, __VA_ARGS__))
+#define IMPL_SEQFOR_FOR_GUIDExx_B_0(...) IMPL_SEQFOR_FOR_GUIDExx_B_1(__VA_ARGS__)
+#define IMPL_SEQFOR_FOR_GUIDExx_B_1(m, s, f, d, ...) __VA_ARGS__ IMPL_SEQFOR_FOR_GUIDExx_A(m, s, f, d,
 
 
 // Generated boilerplate for nested loops:
