@@ -7,7 +7,7 @@
 
 // BSD Zero Clause License
 //
-// Copyright (c) 2024 Egor Mikhailov
+// Copyright (c) 2022-2025 Egor Mikhailov
 //
 // Permission to use, copy, modify, and/or distribute this software for any
 // purpose with or without fee is hereby granted.
@@ -43,6 +43,7 @@
 // Various useful macros, to be passed as arguments to `SF_FOR_EACH`.
 #define SF_NULL(...) // A no-op.
 #define SF_STATE(...) IMPL_SEQFOR_STATE(__VA_ARGS__,) // Returns the second argument. As the step and/or final function, returns the state unchanged.
+#define SF_STATE_EXPAND(...) IMPL_SEQFOR_STATE_EXPAND(__VA_ARGS__,) // Same as `SF_STATE()`, but additionally expands the parentheses, as they are so common in the state.
 
 // Concatenate two identifiers.
 #define SF_CAT(x, y) SF_CAT_(x, y)
@@ -71,6 +72,8 @@
 #define IMPL_SEQFOR_CAT_(x, y) x##y
 // Implementation of `SF_STATE`.
 #define IMPL_SEQFOR_STATE(n, d, ...) d
+#define IMPL_SEQFOR_STATE_EXPAND(n, d, ...) IMPL_SEQFOR_STATE_EXPAND_IDENTITY d
+#define IMPL_SEQFOR_STATE_EXPAND_IDENTITY(...) __VA_ARGS__ // I believe this one doesn't need to be unique per recursion depth.
 
 // `IMPL_SEQFOR_ANNOTATE_SEQ_END(IMPL_SEQFOR_ANNOTATE_SEQ_A seq)` converts `seq` from e.g. `(a)(b)(c)` to `()(a)()(b)()(c)(0)`.
 #define IMPL_SEQFOR_ANNOTATE_SEQ_A(...) ()(__VA_ARGS__)IMPL_SEQFOR_ANNOTATE_SEQ_B

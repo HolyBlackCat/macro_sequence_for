@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -euxo pipefail
+
 # Generates the header file, adding the appropriate boilerplate.
 # See `macro_sequence_for.codegen_input.h` for the details on what is being generated.
 

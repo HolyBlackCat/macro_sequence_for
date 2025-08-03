@@ -1,6 +1,6 @@
 BSD Zero Clause License
 
-Copyright (c) 2022 Egor Mikhailov
+Copyright (c) 2022-2025 Egor Mikhailov
 
 Permission to use, copy, modify, and/or distribute this software for any
 purpose with or without fee is hereby granted.
