@@ -8,6 +8,7 @@ A 'for each' loop macro, with unlimited number of iterations (not limited by the
 * [How?](#how)
   * [Unlimited number of iterations?](#unlimited-number-of-iterations)
   * [Ability to transfer state between iterations?](#ability-to-transfer-state-between-iterations)
+* [Compiler requirements](#compiler-requirements)
 
 ### The motivating example
 ```cpp
@@ -142,3 +143,7 @@ Firstly, we can't forward any state from outside to the loop body. It's impossib
 Similarly, this doesn't let us preserve state between iterations. E.g. we can't produce `int a=1; int b=1+1; int c=1+1+1;`.
 
 And lastly, we can't abstract away this loop into a single macro, since passing the `BODY()` into such macro would too constitute "forwarding state into the loop body".
+
+### Compiler requirements
+
+The current version requires C++20 to allow omitting `,` before the `...` variadic macro arguments. If you can't use C++20, roll back to commit [`39ea3758`](https://github.com/HolyBlackCat/macro_sequence_for/commit/39ea37586d82df985994931a1cf5eb5e12474804).

@@ -15,7 +15,7 @@ OUTPUT=include/macro_sequence_for.h
 
 .PHONY: tests
 tests: tests.cpp $(OUTPUT)
-	@true $(foreach x,$(COMPILER),&& echo -n "$(subst $(comma), ,$x) " && $(subst $(comma), ,$x) -std=c++14 -Wall -Wextra -pedantic-errors -Iinclude $< -c -o $(shell mktemp) && echo "- OK")
+	@true $(foreach x,$(COMPILER),&& echo -n "$(subst $(comma), ,$x) " && $(subst $(comma), ,$x) -std=c++20 -Wall -Wextra -pedantic-errors -Iinclude $< -c -o $(shell mktemp) && echo "- OK")
 
 $(OUTPUT): $(INPUT) generate.sh
 	@mkdir -p "$(dir $(OUTPUT))"
