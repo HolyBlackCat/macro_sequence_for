@@ -1,7 +1,7 @@
 #ifndef MACRO_SEQUENCE_FOR_H_ // Intentionally not a `#pragma once`, to be able to tolerate multiple copies of the file.
 #define MACRO_SEQUENCE_FOR_H_
 
-// "macro_sequence_for.h", v0.3
+// "macro_sequence_for.h", v0.4
 // Implements macro loops with unlimited number of iterations, over sequences of the form `(a)(b)(c)` (though the nesting level is limited).
 // See `SF_FOR_EACH()` below for the usage explanation.
 
@@ -57,7 +57,7 @@
 
 // Implementation:
 
-#if defined(_MSC_VER) && (!defined(_MSVC_TRADITIONAL) || _MSVC_TRADITIONAL == 1)
+#if defined(_MSC_VER) && !defined(__clang__) && (!defined(_MSVC_TRADITIONAL) || _MSVC_TRADITIONAL == 1)
 #error The standard-conformant MSVC preprocessor is required, enable it with `/Zc:preprocessor`.
 #endif
 
